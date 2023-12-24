@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Editor - Result</title>
+</head>
+<body>
+    <h1>Image Editor - Result</h1>
+    <p>Original Image: {{ original_image }}</p>
+    <p>Edited Image: {{ edited_image }}</p>
+    <img src="{{ url_for('static', filename=edited_image) }}" alt="Edited Image" style=" width: 60%;">
+    <p><a href="/">Back to Upload</a></p>
+</body>
+</html>
