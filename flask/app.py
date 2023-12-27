@@ -1,6 +1,9 @@
 from flask import Flask, render_template, request, redirect, url_for
 from PIL import Image, ImageOps
 import os
+# from flask import Flask, render_template, request
+from functions import rmbg,rot,find_face,Blur,Gray,Canny
+app = Flask(__name__)
 
 app = Flask(__name__)
 
@@ -15,43 +18,62 @@ def allowed_file(filename):
 def index():
     return render_template('index.html')
 
-@app.route('/index2')
-def index2():
-    return render_template('index2.html')
 
 @app.route('/upload', methods=['POST'])
-def upload():   
-    if 'image' not in request.files:
-        return redirect(request.url)
+def upload():
+    uploaded_file = request.files['image']
+    selected_options = request.form.getlist('options')
 
-    file = request.files['image']
+    fname = uploaded_file.filename.split('.')[0]
+    selected = selected_options[0]
+    
+    # Sample: Save the uploaded image to a folder named 'uploads'
+    if uploaded_file:
+        uploaded_file.save('static/uploads/' + uploaded_file.filename)
 
-    if file.filename == '':
-        return redirect(request.url)
+    if selected == "RemoveBG":
+        print("RemoveBG")
+        path = rmbg(uploaded_file,fname)
+        # Redirect to the display page with the filename as a parameter
+        return redirect(url_for('display', filename=uploaded_file.filename.split('.')[0]+"_rmbg.png"))
+        
+    elif selected == "FindFace":
+        print("ّFindFace")
+        path = find_face(uploaded_file.filename)
+        # Redirect to the display page with the filename as a parameter
+        return redirect(url_for('display', filename=uploaded_file.filename.split('.')[0]+"_faceD.jpg"))
+    
+    elif selected =="Rotate":
+        print("Rotate")
+        path = rot(uploaded_file.filename)
+        # Redirect to the display page with the filename as a parameter
+        return redirect(url_for('display', filename=uploaded_file.filename.split('.')[0]+"_rot90.jpg"))
+    
+    elif selected =="Blur":
+        print("Blur")
+        path = Blur(uploaded_file.filename)
+        # Redirect to the display page with the filename as a parameter
+        return redirect(url_for('display', filename=uploaded_file.filename.split('.')[0]+"_Blur.jpg"))
+    
+    elif selected =="Grayscale":
+        print("Grayscale")
+        path = Gray(uploaded_file.filename)
+        # Redirect to the display page with the filename as a parameter
+        return redirect(url_for('display', filename=uploaded_file.filename.split('.')[0]+"_gray.jpg"))
+    
+    elif selected =="Canny":
+        print("Canny")
+        path = Canny(uploaded_file.filename)
+        # Redirect to the display page with the filename as a parameter
+        return redirect(url_for('display', filename=uploaded_file.filename.split('.')[0]+"_Canny.jpg"))
 
-    if file and allowed_file(file.filename):
-        # Save the uploaded image
-        image_path = os.path.join(app.config['UPLOAD_FOLDER'], file.filename)
-        file.save(image_path)
 
-        # Apply the selected effect
-        effect = request.form['effect']
-        image = Image.open(image_path)
+    return "File uploaded and form submitted successfully!"
 
-        if effect == 'grayscale':
-            image = ImageOps.grayscale(image)
-        elif effect == 'sepia':
-            # Apply sepia effect (you can implement this or use a library)
-            pass
-        elif effect == 'invert':
-            image = ImageOps.invert(image)
+@app.route('/display/<filename>')
+def display(filename):
+    # Render the display page with the provided filename
+    return render_template('display.html', filename=filename)
 
-        # Save the processed image
-        processed_path = os.path.join('static/result/', 'processed_' + file.filename)
-        image.save(processed_path)
-
-        return render_template('index.html', image_path=processed_path)
-
-    return redirect(request.url)
 if __name__ == '__main__':
     app.run(debug=True)

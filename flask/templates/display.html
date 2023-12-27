@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>IMAGIC|Hadi Safararab</title>
+    <!--
+
+Template 2097 Pop
+
+https://www.tooplate.com/view/2097-pop
+
+-->
+    <!-- load CSS -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300">
+    <!-- Google web font "Open Sans" -->
+    <link rel="stylesheet" href="../static/css/bootstrap.min.css"> <!-- https://getbootstrap.com/ -->
+    <link rel="stylesheet" href="../static/fontawesome/css/fontawesome-all.min.css"> <!-- https://fontawesome.com/ -->
+    <link rel="stylesheet" type="text/css" href="../static/slick/slick.css" />
+    <!-- http://kenwheeler.github.io/slick/ -->
+    <link rel="stylesheet" type="text/css" href="../static/slick/slick-theme.css" />
+    <link rel="stylesheet" href="../static/css/tooplate-style.css"> <!-- Templatemo style -->
+    <link rel="icon" href="../static/images/favicon.png">
+
+    <script>document.documentElement.className = "js"; var supportsCssVars = function () { var e, t = document.createElement("style"); return t.innerHTML = "root: { --tmp-var: bold; }", document.head.appendChild(t), e = !!(window.CSS && window.CSS.supports && window.CSS.supports("font-weight", "var(--tmp-var)")), t.parentNode.removeChild(t), e }; supportsCssVars() || alert("Please view this in a modern browser such as latest version of Chrome or Microsoft Edge.");</script>
+
+</head>
+
+<body>
+    <div id="tm-bg"></div>
+    <div id="tm-wrap">
+        <div class="tm-main-content">
+            <div class="container tm-site-header-container">
+                <div class="row">
+                    <div class="col-sm-12 col-md-6 col-lg-6 col-md-col-xl-6 mb-md-0 mb-sm-4 mb-4 tm-site-header-col">
+                        <a href="/" target="_self">
+                            <img src="../static/images/logo.png" alt="logo"
+                                style="width: 100px; margin-right: 10px;">
+                        </a>
+                        <h1>Your Order Is Ready</h1>
+                    </div>
+                    <div class="col-sm-12 col-md-6 col-lg-6 col-md-col-xl-6 mb-md-0 mb-sm-4 mb-4">
+                        <!-- Display the uploaded image -->
+                        <img src="{{ url_for('static', filename='export/' + filename) }}" alt="Uploaded Image"
+                            style="margin: auto; width: 600px; height: auto;">
+                    </div>
+                </div>
+            </div>
+        </div>
+</body>
+
+</html>
