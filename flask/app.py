@@ -3,9 +3,10 @@ from PIL import Image, ImageOps
 import os
 # from flask import Flask, render_template, request
 from functions import rmbg,rot,find_face,Blur,Gray,Canny
-app = Flask(__name__)
 
 app = Flask(__name__)
+
+# app = Flask(__name__)
 
 # Configure the upload folder
 app.config['UPLOAD_FOLDER'] = 'uploads'

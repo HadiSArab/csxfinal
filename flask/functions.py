@@ -79,7 +79,7 @@ def find_face(filename):
     
     mpFaceDetection = mp.solutions.face_detection
     mpDraw = mp.solutions.drawing_utils
-    faceDetection = mpFaceDetection.FaceDetection(0.75)                            # by default (0.5) and you can change it for accuracy
+    faceDetection = mpFaceDetection.FaceDetection(0.5)                            # by default (0.5) and you can change it for accuracy
     
     image_path = 'static/uploads/' + filename
     img = cv2.imread(image_path)
@@ -98,7 +98,7 @@ def find_face(filename):
             bboxC = detection.location_data.relative_bounding_box
             ih , iw , ic = img.shape
             bbox = int (bboxC.xmin * iw), int(bboxC.ymin * ih), int (bboxC.width * iw) , int(bboxC.height * ih) 
-            cv2.rectangle(img, bbox , (0,0,255),2)
+            cv2.rectangle(img, bbox , (0,0,255),4)
             cv2.putText(img, f'{int(detection.score[0] * 100)} %', (int(bboxC.xmin * iw),int ((bboxC.ymin * ih)- 20)), cv2.FONT_HERSHEY_COMPLEX, 1 , (255,255,0), 1)
             
     fname = filename.split(".")[0]
